@@ -3,41 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
-public class Brick : MonoBehaviour
+namespace Scripts.JuniorProgrammer.Breakout
 {
-    public UnityEvent<int> onDestroyed;
-    
-    public int PointValue;
-
-    void Start()
+    public class Brick : MonoBehaviour
     {
-        var renderer = GetComponentInChildren<Renderer>();
+        public UnityEvent<int> onDestroyed;
 
-        MaterialPropertyBlock block = new MaterialPropertyBlock();
-        switch (PointValue)
+        public int PointValue;
+
+        void Start()
         {
-            case 1 :
-                block.SetColor("_BaseColor", Color.green);
-                break;
-            case 2:
-                block.SetColor("_BaseColor", Color.yellow);
-                break;
-            case 5:
-                block.SetColor("_BaseColor", Color.blue);
-                break;
-            default:
-                block.SetColor("_BaseColor", Color.red);
-                break;
-        }
-        renderer.SetPropertyBlock(block);
-    }
+            var renderer = GetComponentInChildren<Renderer>();
 
-    private void OnCollisionEnter(Collision other)
-    {
-        onDestroyed.Invoke(PointValue);
-        
-        //slight delay to be sure the ball have time to bounce
-        Destroy(gameObject, 0.2f);
+            MaterialPropertyBlock block = new MaterialPropertyBlock();
+            switch (PointValue)
+            {
+                case 1:
+                    block.SetColor("_BaseColor", Color.green);
+                    break;
+                case 2:
+                    block.SetColor("_BaseColor", Color.yellow);
+                    break;
+                case 5:
+                    block.SetColor("_BaseColor", Color.blue);
+                    break;
+                default:
+                    block.SetColor("_BaseColor", Color.red);
+                    break;
+            }
+            renderer.SetPropertyBlock(block);
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            onDestroyed.Invoke(PointValue);
+
+            //slight delay to be sure the ball have time to bounce
+            Destroy(gameObject, 0.2f);
+        }
     }
 }

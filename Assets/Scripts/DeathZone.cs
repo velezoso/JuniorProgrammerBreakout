@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathZone : MonoBehaviour
+namespace Scripts.JuniorProgrammer.Breakout
 {
-    public MainManager Manager;
-
-    private void OnCollisionEnter(Collision other)
+    public class DeathZone : MonoBehaviour
     {
-        Destroy(other.gameObject);
-        Manager.GameOver();
+        public LevelController levelController;
+
+        private void OnCollisionEnter(Collision other)
+        {
+            Destroy(other.gameObject);
+            levelController.GameOver();
+        }
     }
 }
